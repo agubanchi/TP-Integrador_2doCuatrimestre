@@ -1,47 +1,56 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.player = void 0;
+exports.Player = void 0;
 var readline = require("readline-sync");
 var readlineSync = require("readline-sync");
 var menu_1 = require("./menu");
-var player = /** @class */ (function () {
-    function player(pNombre, pDinero, pEdad) {
+var Player = /** @class */ (function () {
+    function Player(pNombre, pEdad, pDinero) {
         this.nombre = pNombre;
         this.edad = pEdad;
         this.dinero = pDinero;
         this.montoApuesta = 0;
     }
-    ;
-    player.prototype.getNombre = function () {
+    Player.prototype.getNombre = function () {
         return this.nombre;
     };
-    ;
-    player.prototype.setNombre = function (pNombre) {
+    Player.prototype.setNombre = function (pNombre) {
         this.nombre = pNombre;
     };
-    ;
-    player.prototype.getEdad = function () {
+    Player.prototype.getEdad = function () {
         return this.edad;
     };
-    player.prototype.setEdad = function (pEdad) {
+    Player.prototype.setEdad = function (pEdad) {
         this.edad = pEdad;
     };
-    player.prototype.getDinero = function () {
+    Player.prototype.validacionDeEdad = function (pEdad) {
+        pEdad = this.edad;
+        if (pEdad >= 18) {
+            console.log("Bienvenido al Casino del indio programador!");
+        }
+        else {
+            console.log("Usted no puede ingresar al establecimiento");
+            process.exit();
+        }
+        return pEdad;
+    };
+    Player.prototype.getDinero = function () {
         return this.dinero;
     };
-    ;
-    player.prototype.setDinero = function (pDinero) {
+    Player.prototype.setDinero = function (pDinero) {
         this.dinero = pDinero;
     };
-    ;
-    player.prototype.getMontoApuesta = function () {
+    Player.prototype.getMontoApuesta = function () {
         return this.montoApuesta;
     };
-    ;
-    player.prototype.setMontoApuesta = function (pMontoApuesta) {
+    Player.prototype.setMontoApuesta = function (pMontoApuesta) {
         this.montoApuesta = pMontoApuesta;
     };
-    player.prototype.AgregarDinero = function () {
+    Player.prototype.apuesta = function (i) {
+        do { } while (i.datoMenuIngreso(this.dinero, 1, 2, this) === false);
+        this.dinero = this.dinero - this.montoApuesta;
+    };
+    Player.prototype.AgregarDinero = function () {
         var monto;
         if (readlineSync.keyInYN("desea agregar más crédito?")) {
             monto = readline.questionInt("Ingrese los créditos que desea agregar");
@@ -51,25 +60,25 @@ var player = /** @class */ (function () {
             else {
                 console.log("el monto debe ser mayor a cero");
             }
-            ;
         }
     };
-    player.prototype.playGame = function (pPlay) {
+    Player.prototype.playGame = function (pPlay) {
         var valor;
         do {
-            valor = pPlay.menu();
+            valor = pPlay.menuCasino();
             if (valor > 0 && valor < 5) {
                 var menu = new menu_1.Menu();
-                menu.fabrica(valor, this, pPlay);
+                menu.factory(valor, this, pPlay);
             }
             else {
                 if (valor < 0 || valor >= 5) {
-                    console.log('Debe ingresar un número que este en el menú');
-                    pPlay.pausaConsola();
+                    console.log("Debe ingresar un número que este en el menú");
+                    pPlay.clear();
+                    pPlay.menuCasino();
                 }
             }
         } while (valor != 0);
     };
-    return player;
+    return Player;
 }());
-exports.player = player;
+exports.Player = Player;

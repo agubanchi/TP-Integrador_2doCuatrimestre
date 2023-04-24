@@ -17,7 +17,7 @@ export abstract class Tragamonedas {
   }
   public setSaldo() {
     this.saldoIngresado = readline.questionInt(
-      "Ingresa el monto al que quieras apostar de "
+      "Ingresa el monto al que quieras apostar:  "
     );
     return `La apuesta del jugador es ${this.saldoIngresado}`;
   }

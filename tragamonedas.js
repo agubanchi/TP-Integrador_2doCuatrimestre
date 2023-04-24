@@ -10,7 +10,7 @@ var Tragamonedas = /** @class */ (function () {
         this.tiposDePremio = pTipos;
     }
     Tragamonedas.prototype.setSaldo = function () {
-        this.saldoIngresado = readline.questionInt("Ingresa el monto al que quieras apostar de ");
+        this.saldoIngresado = readline.questionInt("Ingresa el monto al que quieras apostar:  ");
         return "La apuesta del jugador es ".concat(this.saldoIngresado);
     };
     Tragamonedas.prototype.getSaldo = function () {
