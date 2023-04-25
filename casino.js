@@ -80,7 +80,7 @@ var Casino = /** @class */ (function () {
                 }
                 break;
             default:
-                var valor1 = readline.questionInt("Ingrese el monto a apostar");
+                var valor1 = readline.questionInt("Ingrese el monto a apostar: ");
                 if (valor1 < min) {
                     console.log("Ingrese una suma positiva por favor...");
                 }

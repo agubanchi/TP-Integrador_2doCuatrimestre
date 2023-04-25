@@ -97,7 +97,7 @@ export class Casino {
         }
         break;
       default:
-        let valor1 = readline.questionInt("Ingrese el monto a apostar");
+        let valor1 = readline.questionInt("Ingrese el monto a apostar: ");
         if (valor1 < min) {
           console.log("Ingrese una suma positiva por favor...");
         } else {

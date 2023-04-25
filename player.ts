@@ -62,7 +62,7 @@ export class Player {
 
   public apuesta(i: Casino) {
     do {} while (i.datoMenuIngreso(this.dinero, 1, 2, this) === false);
-    this.dinero = this.dinero - this.montoApuesta;
+    this.dinero = this.dinero + this.getMontoApuesta() * 2;
   }
 
   public AgregarDinero(): void {

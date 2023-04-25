@@ -24,11 +24,22 @@ export class Ruleta implements interfazRuleta {
   }
 
   public entregaDePremio(): number {
-    let premio: number = 0;
+    let premio = this.player.getMontoApuesta();
     if (this.verificarCoincidencia() == true) {
       premio = this.player.getMontoApuesta() * 4;
     }
     return premio;
+  }
+
+  public entregaPremio(): string[] {
+    let premio1: string[] = new Array();
+    let valor = this.entregaDePremio();
+    if (valor !== 0) {
+      premio1.push("Ha Ganado!! ");
+      premio1.push(`su premio es: ${valor}`);
+      this.player.setDinero(valor + this.player.getDinero());
+    }
+    return premio1;
   }
 
   public setNumeroJugador() {
@@ -95,7 +106,7 @@ export class Ruleta implements interfazRuleta {
     );
     for (let i: number = 0; i <= this.finalRuleta; i++) {
       if (this.numeroGanador == i) {
-        console.log("Numero Ganador");
+        console.log(`el numero ganador es ${this.numeroGanador}`);
       } else {
         console.log(i);
       }
@@ -116,12 +127,20 @@ export class Ruleta implements interfazRuleta {
     ) {
       console.log("Wow usted ha Ganadoooo!");
     } else if (this.numeroGanador == this.numeroJugador) {
-      console.log("Usted acepto el numero ganador! recibio X creditos ");
+      console.log(
+        `Usted acerto el numero ganador! recibio ${
+          this.player.getMontoApuesta() * 3
+        } `
+      );
     } else if (
       this.colorGanador[0] == this.colorJugador[0] ||
       this.colorGanador[1] == this.colorJugador[1]
     ) {
-      console.log("Usted acepto el color ganador! recibio X creditos ");
+      console.log(
+        `Usted acerto el color ganador! recibio ${
+          this.player.getMontoApuesta() * 2
+        } `
+      );
     } else {
       console.log(
         "Usted no acepto el color ni numero ganador, Vuelva a intentarlo..."
@@ -130,7 +149,7 @@ export class Ruleta implements interfazRuleta {
     return condicion;
   }
 
-  public entregaPremio(): string[] {
+  /* public entregaPremio(): string[] {
     let premio: string[] = [];
     let valor = this.entregaDePremio();
     if (valor !== 0) {
@@ -140,10 +159,9 @@ export class Ruleta implements interfazRuleta {
     } else {
       premio.push("Huu... Perdiste amigo...");
     }
-    premio.push(`Su saldo actial es de ${this.player.getDinero()}`);
+    premio.push(`Su saldo actual es de ${this.player.getDinero()}`);
     return premio;
-  }
-
+  }*/
   public mostrarEnPantalla(): any {
     let ruleta1 = new Ruleta("Ruleta", this.player);
     ruleta1.setNumeroJugador();
@@ -172,7 +190,7 @@ export class Ruleta implements interfazRuleta {
       console.log(casino.clear());
       casino.setCasino(this.mostrarEnPantalla());
       casino.mostrarInicio(this.nombre);
-      //  hCasino.push.apply(hCasino, this.entregaPremio());
+      //hCasino.push.apply(hCasino, this.entregaPremio());
       casino.setCasino(hCasino);
       casino.mostrarMensaje();
     } while (

@@ -48,7 +48,7 @@ var Player = /** @class */ (function () {
     };
     Player.prototype.apuesta = function (i) {
         do { } while (i.datoMenuIngreso(this.dinero, 1, 2, this) === false);
-        this.dinero = this.dinero - this.montoApuesta;
+        this.dinero = this.dinero + this.getMontoApuesta() * 2;
     };
     Player.prototype.AgregarDinero = function () {
         var monto;

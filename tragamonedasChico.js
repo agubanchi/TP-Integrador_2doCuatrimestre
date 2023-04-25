@@ -122,7 +122,7 @@ var tragaMonedasChica = /** @class */ (function () {
     tragaMonedasChica.prototype.calcularPremio = function () {
         var premio = 0;
         if (this.verificarCoincidencia() == true) {
-            premio = this.player.getDinero() * 4;
+            premio = this.player.getMontoApuesta() * 4;
         }
         return premio;
     };
