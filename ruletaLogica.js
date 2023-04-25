@@ -37,12 +37,12 @@ var Ruleta = /** @class */ (function () {
             console.log("Ingresa un numero valido entre 0 y 15 : ");
         }
         else {
-            console.log("El numero del jugador es: ".concat(numero));
+            console.log("El numero del jugador es: ".concat(numero).red.bgWhite);
         }
     };
     Ruleta.prototype.setApuestaJugador = function () {
         this.apuestaJugador = readline.questionInt("Ingresa el monto al que quieras apostar de ");
-        return "La apuesta del jugador es ".concat(this.apuestaJugador);
+        return "La apuesta del jugador es ".concat(this.apuestaJugador).white.bgGreen;
     };
     Ruleta.prototype.setColorJugador = function () {
         this.colorJugador = readline.questionInt("Ingrese que a que color desea apostar 0 para Rojo  1 para Verde: ");
@@ -50,13 +50,13 @@ var Ruleta = /** @class */ (function () {
             case 0:
                 this.colors[0];
                 {
-                    console.log("tu color elegido es el Rojo");
+                    console.log("tu color elegido es el Rojo".red);
                     break;
                 }
             case 1:
                 this.colors[1];
                 {
-                    console.log("tu color elegido es el Verde");
+                    console.log("tu color elegido es el Verde".green);
                     break;
                 }
             default: {
@@ -80,7 +80,7 @@ var Ruleta = /** @class */ (function () {
             this.inicioRuleta);
         for (var i = 0; i <= this.finalRuleta; i++) {
             if (this.numeroGanador == i) {
-                console.log("el numero ganador es ".concat(this.numeroGanador));
+                console.log("el numero ganador es ".concat(this.numeroGanador).black.bgYellow.bold);
             }
             else {
                 console.log(i);
@@ -99,14 +99,14 @@ var Ruleta = /** @class */ (function () {
             console.log("Wow usted ha Ganadoooo!");
         }
         else if (this.numeroGanador == this.numeroJugador) {
-            console.log("Usted acerto el numero ganador! recibio ".concat(this.player.getMontoApuesta() * 3, " "));
+            console.log("Usted acert\u00F3 el numero ganador! recibio ".concat(this.player.getMontoApuesta() * 3, " "));
         }
-        else if (this.colorGanador[0] == this.colorJugador[0] ||
-            this.colorGanador[1] == this.colorJugador[1]) {
-            console.log("Usted acerto el color ganador! recibio ".concat(this.player.getMontoApuesta() * 2, " "));
+        else if (this.colorGanador[0] === this.colorJugador[0] ||
+            this.colorGanador[1] === this.colorJugador[1]) {
+            console.log("Usted acert\u00F3 el color ganador! recibio ".concat(this.player.getMontoApuesta() * 2, " "));
         }
         else {
-            console.log("Usted no acepto el color ni numero ganador, Vuelva a intentarlo...");
+            console.log("Usted no acertó el color ni numero ganador, Vuelva a intentarlo...");
         }
         return condicion;
     };
@@ -128,8 +128,8 @@ var Ruleta = /** @class */ (function () {
         ruleta1.setNumeroJugador();
         ruleta1.setColorJugador();
         ruleta1.tirarRuleta();
-        ruleta1.saberColorGanador();
         ruleta1.verificarCoincidencia();
+        ruleta1.saberColorGanador();
     };
     Ruleta.prototype.play = function (casino) {
         var hCasino;

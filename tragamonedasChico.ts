@@ -14,6 +14,25 @@ export class tragaMonedasChica {
     this.player = pPlayer;
   }
 
+  public entregaDePremio(): number {
+    let premio = this.player.getMontoApuesta();
+    if (this.verificarCoincidencia() == true) {
+      premio = this.player.getMontoApuesta() * 4;
+    }
+    return premio;
+  }
+
+  public entregaPremio(): string[] {
+    let premio1: string[] = new Array();
+    let valor = this.entregaDePremio();
+    if (valor !== 0) {
+      premio1.push("Ha Ganado!! ");
+      premio1.push(`su premio es: ${valor}`);
+      this.player.setDinero(valor + this.player.getDinero());
+    }
+    return premio1;
+  }
+
   // inicio el random de los slots que saldran al azar
   public randomSlots() {
     this.slotsAleatorio = [];
@@ -52,66 +71,12 @@ export class tragaMonedasChica {
     );
   }
 
-  /*
-  public verificarCoincidencia(): boolean {
-    let indicesCoinciden = true;
-
-    for (let i = 0; i < this.slotsAleatorio.length; i++) {
-      if (this.slotsAleatorio[i] !== this.slotsjugadorAleatorio[i]) {
-        indicesCoinciden = false;
-        break;
-      }
-    }
-    if (indicesCoinciden) {
-      console.log("Felicidades, Usted Gano el premio Mayor!!");
-    } else if (
-      this.slotsAleatorio[0] === this.slotsjugadorAleatorio[0] ||
-      this.slotsAleatorio[1] === this.slotsjugadorAleatorio[1] ||
-      this.slotsAleatorio[2] === this.slotsjugadorAleatorio[2]
-    ) {
-      console.log("usted gano x creditos");
-    } else {
-      console.log("usted no gano, siga participando");
-    }
-  }
-*/
-
   public mostrarEnPantalla(): any {
     let tragamonedas = new tragaMonedasChica("Tragamonedas", this.player);
 
     console.log(yellow(tragamonedas.randomSlots()));
     console.log(blue(tragamonedas.randomSlotsJugador()));
     console.log(tragamonedas.verificarCoincidencia());
-    //console.log(tragamonedas.calcularPremio());
-    //console.log(tragamonedas.entregaPremio());
-  }
-
-  public play(casino: Casino): void {
-    let hCasino: string[];
-    console.log(casino.clear());
-    console.log(casino.reglas(this.nombre));
-    console.log(this.guia());
-    casino.pausa();
-    do {
-      hCasino = [];
-      console.log(casino.clear());
-      casino.welcome(this.nombre);
-      console.log(casino.clear());
-      hCasino.push(`su saldo actual es de ${this.player.getDinero()}`);
-      casino.setCasino(hCasino);
-      casino.mostrarMensaje();
-      hCasino = [];
-      this.player.apuesta(casino);
-      console.log(casino.clear());
-      casino.setCasino(this.mostrarEnPantalla());
-      casino.mostrarInicio(this.nombre);
-      hCasino.push.apply(hCasino, this.entregaPremio());
-      casino.setCasino(hCasino);
-      casino.mostrarMensaje();
-    } while (
-      this.player.getDinero() > 0 &&
-      readline.keyInYN("Queres volver a intentar? ")
-    );
   }
 
   public guia(): string {
@@ -137,46 +102,55 @@ export class tragaMonedasChica {
     }
 
     if (indicesCoinciden) {
-      console.log(`Felicidades, Usted Gano el premio Mayor!!`);
+      console.log(
+        `Felicidades, Usted Gano el premio Mayor!! recibio: ${
+          this.player.getMontoApuesta() * 3
+        }`
+      );
     } else if (
       this.slotsAleatorio[0] === this.slotsjugadorAleatorio[0] ||
       this.slotsAleatorio[1] === this.slotsjugadorAleatorio[1] ||
       this.slotsAleatorio[2] === this.slotsjugadorAleatorio[2]
     ) {
-      console.log(`usted gano x creditos `);
+      console.log(
+        `Usted acertó uno de los slots!! usted gano ${
+          this.player.getMontoApuesta() * 1
+        } creditos `
+      );
     } else {
-      console.log("usted no gano, siga participando");
+      console.log(
+        `usted no gano,perdió ${
+          this.player.getMontoApuesta() / 1
+        } siga participando`
+      );
     }
   }
 
-  public calcularPremio() {
-    let premio: number = 0;
-    if (this.verificarCoincidencia() == true) {
-      premio = this.player.getMontoApuesta() * 4;
-    }
-    return premio;
-  }
-
-  public entregaPremio(): string[] {
-    let premio: string[] = [];
-    let valor = this.calcularPremio();
-    if (valor !== 0) {
-      premio.push("Ha Ganado!! ");
-      premio.push(`su premio es: ${valor}`);
-      this.player.setDinero(valor + this.player.getDinero());
-    } else {
-      premio.push("Huu... Perdiste amigo...");
-    }
-    premio.push(`Su saldo actual es de ${this.player.getDinero()}`);
-    return premio;
-  }
-
-  public entregaDePremio(): number {
-    return 0;
+  public play(casino: Casino): void {
+    let hCasino: string[];
+    console.log(casino.clear());
+    console.log(casino.reglas(this.nombre));
+    console.log(this.guia());
+    casino.pausa();
+    do {
+      hCasino = [];
+      console.log(casino.clear());
+      casino.welcome(this.nombre);
+      console.log(casino.clear());
+      hCasino.push(`su saldo actual es de ${this.player.getDinero()}`);
+      casino.setCasino(hCasino);
+      casino.mostrarMensaje();
+      hCasino = [];
+      this.player.apuesta(casino);
+      console.log(casino.clear());
+      casino.setCasino(this.mostrarEnPantalla());
+      casino.mostrarInicio(this.nombre);
+      //hCasino.push.apply(hCasino, this.entregaPremio());
+      casino.setCasino(hCasino);
+      casino.mostrarMensaje();
+    } while (
+      this.player.getDinero() > 0 &&
+      readline.keyInYN("Queres volver a intentar? ")
+    );
   }
 }
-
-/*console.log(micorazon.reglamento());
-console.log(micorazon.randomSlots());
-console.log(micorazon.randomSlotsJugador());
-console.log(micorazon.mostrarEnPantalla());*/

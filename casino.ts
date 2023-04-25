@@ -1,4 +1,5 @@
 import * as readline from "readline-sync";
+import { red, blue, yellow, green } from "colors";
 import { Player } from "./player";
 import { Menu } from "./menu";
 import { Ruleta } from "./ruletaLogica";
@@ -14,14 +15,14 @@ export class Casino {
   }
 
   public welcome(pTitulo: string): void {
-    console.log(`Bienvenido al ${pTitulo}\n`);
-    console.log(`************** Mucha suerte **************`);
+    console.log(`Bienvenido al ${pTitulo}\n`.grey.bgWhite);
+    console.log(`************** Mucha suerte **************`.grey.bgWhite);
   }
 
   public reglas(pGame: string) {
     console.log("\n");
     console.log(`Esta Juagado ${pGame}`);
-    console.log("el juego consiste en lo siguiente: ");
+    console.log(red("el juego consiste en lo siguiente: "));
     console.log("\n");
   }
 
@@ -62,19 +63,29 @@ export class Casino {
 
   public menuCasino(): number {
     console.log("\n");
-    console.log(`    Bienvenido al Casino del indio programador`);
+    console.log(`    Bienvenido al Casino del indio programador`.gray.bgYellow);
     console.log("\n");
-    console.log(`ingresa uno de los números para iniciar un juego!`);
+    console.log(
+      `ingresa uno de los números para iniciar un juego!`.gray.bgYellow
+    );
     console.log("\n");
-    console.log(`1.------------------Cartas----------------------- `);
+    console.log(
+      `1.------------------Cartas----------------------- `.red.bgWhite
+    );
     console.log("\n");
-    console.log(`2.----------Tragamoneas de Corazones------------- `);
+    console.log(
+      `2.----------Tragamoneas de Corazones------------- `.blue.bgWhite
+    );
     console.log("\n");
-    console.log(`3.-------------Tragamoneas Grande---------------- `);
+    console.log(
+      `3.-------------Tragamoneas Grande---------------- `.green.bgWhite
+    );
     console.log("\n");
-    console.log(`4.------------------Ruleta----------------------- `);
+    console.log(
+      `4.------------------Ruleta----------------------- `.black.bgWhite
+    );
     console.log("\n");
-    console.log(`0.*******************salir*********************** `);
+    console.log(`0.*******************salir*********************** `.yellow);
     console.log("\n");
 
     return readline.questionInt("Ingrese una opcion del menu: ");
@@ -127,7 +138,7 @@ export class Casino {
     console.log(casino1.welcome("Casino del Indio Programador"));
     let pNombre = readline.question("Dime tu nombre: ");
     let pEdad = readline.questionInt("Ahora, dime tu edad: ");
-    let pCredito = readline.questionInt("Cuantos creditos deseas comprar?");
+    let pCredito = readline.questionInt("Cuantos creditos deseas comprar? ");
     console.log(casino1.clear());
     let player = new Player(pNombre, pEdad, pCredito);
     player.validacionDeEdad(pEdad);

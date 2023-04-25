@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Casino = void 0;
 var readline = require("readline-sync");
+var colors_1 = require("colors");
 var player_1 = require("./player");
 //import { TragamonedasGrande } from "./tragamonedasGrande";
 //import { Cartas } from "./cartas";
@@ -10,13 +11,13 @@ var Casino = /** @class */ (function () {
         this.casino = pCasino;
     }
     Casino.prototype.welcome = function (pTitulo) {
-        console.log("Bienvenido al ".concat(pTitulo, "\n"));
-        console.log("************** Mucha suerte **************");
+        console.log("Bienvenido al ".concat(pTitulo, "\n").grey.bgWhite);
+        console.log("************** Mucha suerte **************".grey.bgWhite);
     };
     Casino.prototype.reglas = function (pGame) {
         console.log("\n");
         console.log("Esta Juagado ".concat(pGame));
-        console.log("el juego consiste en lo siguiente: ");
+        console.log((0, colors_1.red)("el juego consiste en lo siguiente: "));
         console.log("\n");
     };
     Casino.prototype.setCasino = function (pCasino) {
@@ -51,19 +52,19 @@ var Casino = /** @class */ (function () {
     };
     Casino.prototype.menuCasino = function () {
         console.log("\n");
-        console.log("    Bienvenido al Casino del indio programador");
+        console.log("    Bienvenido al Casino del indio programador".gray.bgYellow);
         console.log("\n");
-        console.log("ingresa uno de los n\u00FAmeros para iniciar un juego!");
+        console.log("ingresa uno de los n\u00FAmeros para iniciar un juego!".gray.bgYellow);
         console.log("\n");
-        console.log("1.------------------Cartas----------------------- ");
+        console.log("1.------------------Cartas----------------------- ".red.bgWhite);
         console.log("\n");
-        console.log("2.----------Tragamoneas de Corazones------------- ");
+        console.log("2.----------Tragamoneas de Corazones------------- ".blue.bgWhite);
         console.log("\n");
-        console.log("3.-------------Tragamoneas Grande---------------- ");
+        console.log("3.-------------Tragamoneas Grande---------------- ".green.bgWhite);
         console.log("\n");
-        console.log("4.------------------Ruleta----------------------- ");
+        console.log("4.------------------Ruleta----------------------- ".black.bgWhite);
         console.log("\n");
-        console.log("0.*******************salir*********************** ");
+        console.log("0.*******************salir*********************** ".yellow);
         console.log("\n");
         return readline.questionInt("Ingrese una opcion del menu: ");
     };
@@ -110,7 +111,7 @@ var Casino = /** @class */ (function () {
         console.log(casino1.welcome("Casino del Indio Programador"));
         var pNombre = readline.question("Dime tu nombre: ");
         var pEdad = readline.questionInt("Ahora, dime tu edad: ");
-        var pCredito = readline.questionInt("Cuantos creditos deseas comprar?");
+        var pCredito = readline.questionInt("Cuantos creditos deseas comprar? ");
         console.log(casino1.clear());
         var player = new player_1.Player(pNombre, pEdad, pCredito);
         player.validacionDeEdad(pEdad);

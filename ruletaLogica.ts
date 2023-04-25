@@ -1,5 +1,6 @@
 //tirar un número de 1 a 15.
 import * as readline from "readline-sync";
+import { red, blue, yellow } from "colors";
 import { Casino } from "./casino";
 import { interfazRuleta } from "./interfazRuleta";
 import { Player } from "./player";
@@ -50,7 +51,7 @@ export class Ruleta implements interfazRuleta {
     if (numero < 0 || numero > 15) {
       console.log("Ingresa un numero valido entre 0 y 15 : ");
     } else {
-      console.log(`El numero del jugador es: ${numero}`);
+      console.log(`El numero del jugador es: ${numero}`.red.bgWhite);
     }
   }
 
@@ -58,7 +59,7 @@ export class Ruleta implements interfazRuleta {
     this.apuestaJugador = readline.questionInt(
       "Ingresa el monto al que quieras apostar de "
     );
-    return `La apuesta del jugador es ${this.apuestaJugador}`;
+    return `La apuesta del jugador es ${this.apuestaJugador}`.white.bgGreen;
   }
   public setColorJugador() {
     this.colorJugador = readline.questionInt(
@@ -69,14 +70,14 @@ export class Ruleta implements interfazRuleta {
       case 0:
         this.colors[0];
         {
-          console.log("tu color elegido es el Rojo");
+          console.log("tu color elegido es el Rojo".red);
 
           break;
         }
       case 1:
         this.colors[1];
         {
-          console.log("tu color elegido es el Verde");
+          console.log("tu color elegido es el Verde".green);
 
           break;
         }
@@ -106,7 +107,9 @@ export class Ruleta implements interfazRuleta {
     );
     for (let i: number = 0; i <= this.finalRuleta; i++) {
       if (this.numeroGanador == i) {
-        console.log(`el numero ganador es ${this.numeroGanador}`);
+        console.log(
+          `el numero ganador es ${this.numeroGanador}`.black.bgYellow.bold
+        );
       } else {
         console.log(i);
       }
@@ -128,22 +131,22 @@ export class Ruleta implements interfazRuleta {
       console.log("Wow usted ha Ganadoooo!");
     } else if (this.numeroGanador == this.numeroJugador) {
       console.log(
-        `Usted acerto el numero ganador! recibio ${
+        `Usted acertó el numero ganador! recibio ${
           this.player.getMontoApuesta() * 3
         } `
       );
     } else if (
-      this.colorGanador[0] == this.colorJugador[0] ||
-      this.colorGanador[1] == this.colorJugador[1]
+      this.colorGanador[0] === this.colorJugador[0] ||
+      this.colorGanador[1] === this.colorJugador[1]
     ) {
       console.log(
-        `Usted acerto el color ganador! recibio ${
+        `Usted acertó el color ganador! recibio ${
           this.player.getMontoApuesta() * 2
         } `
       );
     } else {
       console.log(
-        "Usted no acepto el color ni numero ganador, Vuelva a intentarlo..."
+        "Usted no acertó el color ni numero ganador, Vuelva a intentarlo..."
       );
     }
     return condicion;
@@ -167,8 +170,8 @@ export class Ruleta implements interfazRuleta {
     ruleta1.setNumeroJugador();
     ruleta1.setColorJugador();
     ruleta1.tirarRuleta();
-    ruleta1.saberColorGanador();
     ruleta1.verificarCoincidencia();
+    ruleta1.saberColorGanador();
   }
 
   public play(casino: Casino): void {
