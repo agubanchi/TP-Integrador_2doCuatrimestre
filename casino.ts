@@ -2,10 +2,6 @@ import * as readline from "readline-sync";
 import { red, blue, yellow, green } from "colors";
 import { Player } from "./player";
 import { Menu } from "./menu";
-import { Ruleta } from "./ruletaLogica";
-import { tragaMonedasChica } from "./tragamonedasChico";
-//import { TragamonedasGrande } from "./tragamonedasGrande";
-//import { Cartas } from "./cartas";
 
 export class Casino {
   protected casino: string[];
@@ -15,13 +11,14 @@ export class Casino {
   }
 
   public welcome(pTitulo: string): void {
+    console.clear();
     console.log(`Bienvenido al ${pTitulo}\n`.grey.bgWhite);
     console.log(`************** Mucha suerte **************`.grey.bgWhite);
   }
 
   public reglas(pGame: string) {
     console.log("\n");
-    console.log(`Esta Juagado ${pGame}`);
+    console.log(`Esta Jugando ${pGame}`);
     console.log(red("el juego consiste en lo siguiente: "));
     console.log("\n");
   }
@@ -46,14 +43,6 @@ export class Casino {
     }
     console.log("Exitos! ");
   }
-
-  /*public preguntas(): void{
-    let pNombre = readline.question("Dime tu nombre: "); 
-    let pEdad = readline.questionInt("Ahora, dime tu edad: ");
-    let pCredito = readline.questionInt('Cuantos creditos deseas comprar?')
-    let player = new Player(pNombre, pEdad, pCredito);
-    player.validacionDeEdad(pEdad);
-    }*/
 
   public mostrarInicio(pTitulo: string): void {
     console.log(`Disfrute mucho de ${pTitulo}`);
@@ -139,6 +128,9 @@ export class Casino {
     let pNombre = readline.question("Dime tu nombre: ");
     let pEdad = readline.questionInt("Ahora, dime tu edad: ");
     let pCredito = readline.questionInt("Cuantos creditos deseas comprar? ");
+    if (pCredito <= 0) {
+      console.log("Ingrese una suma positiva por favor...");
+    }
     console.log(casino1.clear());
     let player = new Player(pNombre, pEdad, pCredito);
     player.validacionDeEdad(pEdad);

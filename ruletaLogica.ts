@@ -50,6 +50,7 @@ export class Ruleta implements interfazRuleta {
     );
     if (numero < 0 || numero > 15) {
       console.log("Ingresa un numero valido entre 0 y 15 : ");
+      return this.setNumeroJugador();
     } else {
       console.log(`El numero del jugador es: ${numero}`.red.bgWhite);
     }
@@ -87,6 +88,12 @@ export class Ruleta implements interfazRuleta {
         break;
       }
     }
+    if (this.colorJugador < 0 || this.colorJugador > 1) {
+      console.log("Ingresa un numero valido entre 0 y 1 : ");
+      return this.setColorJugador();
+    } else {
+      console.log(`El color del jugador es: ${this.colorJugador}`.red.bgWhite);
+    }
   }
   public saberColorGanador() {
     this.colorGanador = [];
@@ -117,8 +124,14 @@ export class Ruleta implements interfazRuleta {
   }
   public guia(): string {
     let guia =
-      "Las reglas de la ruleta son darte un corchazo con la unica bala del revolver, suerte pirobo";
-    return guia;
+      "----------------------------------------------------------------------------------------------------- Las reglas de la ruleta son darte un corchazo con la unica bala del revolver, suerte pirobo -----------------------------------------------------------------------------------------------------";
+    return guia.black.bgCyan;
+  }
+
+  public probabilidades(): string {
+    let probabilidades =
+      " -----------------------------------------------------------------------------------------------------la probabilidad de acertar el número exacto sería de 1/16 = 0.0625 o aproximadamente 6.25%. Las probabilidades para aceratr el color es de 50/50 = 50% -----------------------------------------------------------------------------------------------------";
+    return probabilidades.black.bgYellow;
   }
 
   public verificarCoincidencia(): boolean {
@@ -128,43 +141,51 @@ export class Ruleta implements interfazRuleta {
         this.colors[0] == this.colorJugador[0]) ||
       this.colors[1] == this.colorJugador[1]
     ) {
-      console.log("Wow usted ha Ganadoooo!");
+      console.log(
+        `Wow usted ha Ganado el premio Mayor!!! ${
+          this.player.getMontoApuesta() * 5
+        }`
+      );
+      this.player.getDinero(),
+        this.player.setDinero(
+          this.player.getDinero() + this.player.getMontoApuesta() * 5
+        );
     } else if (this.numeroGanador == this.numeroJugador) {
       console.log(
-        `Usted acertó el numero ganador! recibio ${
+        `Usted acertó el numero ganador! recibio  ${
           this.player.getMontoApuesta() * 3
-        } `
+        }`
       );
+      this.player.getDinero(),
+        this.player.setDinero(
+          this.player.getDinero() + this.player.getMontoApuesta() * 3
+        );
     } else if (
       this.colorGanador[0] === this.colorJugador[0] ||
       this.colorGanador[1] === this.colorJugador[1]
     ) {
       console.log(
-        `Usted acertó el color ganador! recibio ${
-          this.player.getMontoApuesta() * 2
-        } `
+        `Usted acertó el color ganador! recibio  ${
+          this.player.getMontoApuesta() * 3
+        }`
       );
+      this.player.getDinero(),
+        this.player.setDinero(
+          this.player.getDinero() + this.player.getMontoApuesta() * 3
+        );
     } else {
       console.log(
-        "Usted no acertó el color ni numero ganador, Vuelva a intentarlo..."
+        `Usted no acertó el color ni numero ganador, Vuelva a intentarlo...su saldo actual es ${this.player.getDinero()}`
       );
     }
+
+    if (this.player.getMontoApuesta() <= 0) {
+      console.log(this.player.AgregarDinero());
+    }
+
     return condicion;
   }
 
-  /* public entregaPremio(): string[] {
-    let premio: string[] = [];
-    let valor = this.entregaDePremio();
-    if (valor !== 0) {
-      premio.push("Ha Ganado!! ");
-      premio.push(`su premio es: ${valor}`);
-      this.player.setDinero(valor + this.player.getDinero());
-    } else {
-      premio.push("Huu... Perdiste amigo...");
-    }
-    premio.push(`Su saldo actual es de ${this.player.getDinero()}`);
-    return premio;
-  }*/
   public mostrarEnPantalla(): any {
     let ruleta1 = new Ruleta("Ruleta", this.player);
     ruleta1.setNumeroJugador();
@@ -179,6 +200,7 @@ export class Ruleta implements interfazRuleta {
     console.log(casino.clear());
     console.log(casino.reglas(this.nombre));
     console.log(this.guia());
+    console.log(this.probabilidades());
     casino.pausa();
     do {
       hCasino = [];
@@ -193,12 +215,13 @@ export class Ruleta implements interfazRuleta {
       console.log(casino.clear());
       casino.setCasino(this.mostrarEnPantalla());
       casino.mostrarInicio(this.nombre);
-      //hCasino.push.apply(hCasino, this.entregaPremio());
       casino.setCasino(hCasino);
       casino.mostrarMensaje();
     } while (
-      this.player.getDinero() > 0 &&
+      this.player.getMontoApuesta() > 0 &&
       readline.keyInYN("Queres volver a intentar? ")
     );
+    console.log(casino.clear());
+    console.log(this.player.AgregarDinero());
   }
 }

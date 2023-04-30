@@ -2,35 +2,60 @@ import * as readline from "readline-sync";
 import { Casino } from "./casino";
 import { Player } from "./player";
 import { red, blue, yellow } from "colors";
+import { Tragamonedas } from "./tragamonedas";
 
-export class tragaMonedasChica {
-  public nombre: string;
-  public player: Player;
-  private slots: string[] = ["🖤", "🤍", "🧡", "💙"];
-  private slotsjugadorAleatorio: string[];
-  private slotsAleatorio: string[];
+export class tragaMonedasChica extends Tragamonedas {
   public constructor(pNombre: string, pPlayer: Player) {
-    this.nombre = pNombre;
-    this.player = pPlayer;
+    super(pNombre, pPlayer);
   }
 
-  public entregaDePremio(): number {
-    let premio = this.player.getMontoApuesta();
-    if (this.verificarCoincidencia() == true) {
-      premio = this.player.getMontoApuesta() * 4;
-    }
-    return premio;
-  }
+  /* Calculamos el premio segun las condiciones =
+  1- Si el jugador aceertó todos los slots, recibe un premio de su apuesta multiplicado por 5.
+  2' Si el jugador acertó uno o dos slots en su combinación, recibe su apuesta multiplicada por 2.
 
-  public entregaPremio(): string[] {
-    let premio1: string[] = new Array();
-    let valor = this.entregaDePremio();
-    if (valor !== 0) {
-      premio1.push("Ha Ganado!! ");
-      premio1.push(`su premio es: ${valor}`);
-      this.player.setDinero(valor + this.player.getDinero());
+  3' Si el jugador no acertó ninguna conbinación de slots, pierde su dinero apostado.
+  
+  */
+
+  public verificarCoincidencia(): any {
+    let indicesCoinciden = true;
+
+    for (let i = 0; i < this.slotsAleatorio.length; i++) {
+      if (this.slotsAleatorio[i] !== this.slotsjugadorAleatorio[i]) {
+        indicesCoinciden = false;
+        break;
+      }
     }
-    return premio1;
+
+    if (indicesCoinciden) {
+      console.log(
+        `Felicidades, Ganaste el premio mayor!!! ${
+          this.player.getMontoApuesta() * 5
+        }`
+      );
+      this.player.getDinero(),
+        this.player.setDinero(
+          this.player.getDinero() + this.player.getMontoApuesta() * 5
+        );
+    } else if (
+      this.slotsAleatorio[0] === this.slotsjugadorAleatorio[0] ||
+      this.slotsAleatorio[1] === this.slotsjugadorAleatorio[1] ||
+      this.slotsAleatorio[2] === this.slotsjugadorAleatorio[2]
+    ) {
+      console.log(
+        `Usted acertó uno de los slots!! usted gano  ${
+          this.player.getMontoApuesta() * 2
+        }`
+      );
+      this.player.getDinero(),
+        this.player.setDinero(
+          this.player.getDinero() + this.player.getMontoApuesta() * 2
+        );
+    } else {
+      console.log(
+        `usted no gano,su saldo actual es ${this.player.getDinero()}`
+      );
+    }
   }
 
   // inicio el random de los slots que saldran al azar
@@ -91,39 +116,10 @@ export class tragaMonedasChica {
     return guia;
   }
 
-  public verificarCoincidencia(): any {
-    let indicesCoinciden = true;
-
-    for (let i = 0; i < this.slotsAleatorio.length; i++) {
-      if (this.slotsAleatorio[i] !== this.slotsjugadorAleatorio[i]) {
-        indicesCoinciden = false;
-        break;
-      }
-    }
-
-    if (indicesCoinciden) {
-      console.log(
-        `Felicidades, Usted Gano el premio Mayor!! recibio: ${
-          this.player.getMontoApuesta() * 3
-        }`
-      );
-    } else if (
-      this.slotsAleatorio[0] === this.slotsjugadorAleatorio[0] ||
-      this.slotsAleatorio[1] === this.slotsjugadorAleatorio[1] ||
-      this.slotsAleatorio[2] === this.slotsjugadorAleatorio[2]
-    ) {
-      console.log(
-        `Usted acertó uno de los slots!! usted gano ${
-          this.player.getMontoApuesta() * 1
-        } creditos `
-      );
-    } else {
-      console.log(
-        `usted no gano,perdió ${
-          this.player.getMontoApuesta() / 1
-        } siga participando`
-      );
-    }
+  public probabilidades(): string {
+    let probabilidades =
+      " -----------------------------------------------------------------------------------------------------la probabilidad de acertar el número exacto de slots seria de 0.61% o 1 en 164 intentos.-----------------------------------------------------------------------------------------------------";
+    return probabilidades.black.bgYellow;
   }
 
   public play(casino: Casino): void {
@@ -131,6 +127,7 @@ export class tragaMonedasChica {
     console.log(casino.clear());
     console.log(casino.reglas(this.nombre));
     console.log(this.guia());
+    console.log(this.probabilidades());
     casino.pausa();
     do {
       hCasino = [];
@@ -145,7 +142,6 @@ export class tragaMonedasChica {
       console.log(casino.clear());
       casino.setCasino(this.mostrarEnPantalla());
       casino.mostrarInicio(this.nombre);
-      //hCasino.push.apply(hCasino, this.entregaPremio());
       casino.setCasino(hCasino);
       casino.mostrarMensaje();
     } while (

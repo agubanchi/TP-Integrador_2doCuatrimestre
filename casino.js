@@ -16,7 +16,7 @@ var Casino = /** @class */ (function () {
     };
     Casino.prototype.reglas = function (pGame) {
         console.log("\n");
-        console.log("Esta Juagado ".concat(pGame));
+        console.log("Esta Jugando ".concat(pGame));
         console.log((0, colors_1.red)("el juego consiste en lo siguiente: "));
         console.log("\n");
     };

@@ -37,14 +37,15 @@ export class Cartas {
     this.apuesta = p_apuesta;
   }
 
-  public entregaDePremio(): number {
+  /* public entregaDePremio(): number {
     let premio = this.player.getMontoApuesta();
     if (this.verificarCoincidencia() == true) {
       premio = this.player.getMontoApuesta() * 4;
     }
     return premio;
   }
-
+*/
+  /*
   public entregaPremio(): string[] {
     let premio1: string[] = new Array();
     let valor = this.entregaDePremio();
@@ -54,7 +55,7 @@ export class Cartas {
       this.player.setDinero(valor + this.player.getDinero());
     }
     return premio1;
-  }
+  }*/
 
   public mostrarEnPantalla(): any {
     let cartas = new Cartas("Tragamonedas", this.player);

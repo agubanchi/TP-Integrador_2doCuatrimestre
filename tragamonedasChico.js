@@ -9,23 +9,23 @@ var tragaMonedasChica = /** @class */ (function () {
         this.nombre = pNombre;
         this.player = pPlayer;
     }
-    tragaMonedasChica.prototype.entregaDePremio = function () {
-        var premio = this.player.getMontoApuesta();
-        if (this.verificarCoincidencia() == true) {
-            premio = this.player.getMontoApuesta() * 4;
-        }
-        return premio;
-    };
-    tragaMonedasChica.prototype.entregaPremio = function () {
-        var premio1 = new Array();
-        var valor = this.entregaDePremio();
-        if (valor !== 0) {
-            premio1.push("Ha Ganado!! ");
-            premio1.push("su premio es: ".concat(valor));
-            this.player.setDinero(valor + this.player.getDinero());
-        }
-        return premio1;
-    };
+    /* public entregaDePremio(): number {
+      let premio = this.player.getMontoApuesta();
+      if (this.verificarCoincidencia() == true) {
+        premio = this.player.getMontoApuesta() * 4;
+      }
+      return premio;
+    }*/
+    /* public entregaPremio(): string[] {
+      let premio1: string[] = new Array();
+      let valor = this.entregaDePremio();
+      if (valor !== 0) {
+        premio1.push("Ha Ganado!! ");
+        premio1.push(`su premio es: ${valor}`);
+        this.player.setDinero(valor + this.player.getDinero());
+      }
+      return premio1;
+    }*/
     // inicio el random de los slots que saldran al azar
     tragaMonedasChica.prototype.randomSlots = function () {
         this.slotsAleatorio = [];

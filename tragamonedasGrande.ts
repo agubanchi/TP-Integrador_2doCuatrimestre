@@ -2,49 +2,75 @@ import * as readline from "readline-sync";
 import { Casino } from "./casino";
 import { Player } from "./player";
 import { red, blue, yellow } from "colors";
+import { Tragamonedas } from "./tragamonedas";
 
-export class tragaMonedasGrande {
-  public nombre: string;
-  public player: Player;
-  public premioMayor: number = 0;
-  private slots: string[] = ["🖤", "🤍", "🧡", "💙", "❤️", "🤎", "💚"];
-  private slotsjugadorAleatorio: string[];
-  private slotsAleatorio: string[];
+export class tragamonedasGrande extends Tragamonedas {
   public constructor(pNombre: string, pPlayer: Player) {
-    this.nombre = pNombre;
-    this.player = pPlayer;
+    super(pNombre, pPlayer);
   }
 
-  public entregaDePremio(): number {
-    let premio = this.player.getMontoApuesta();
-    if (this.verificarCoincidencia() == true) {
-      premio = this.player.getMontoApuesta() * 4;
-    }
-    return premio;
-  }
+  /* Calculamos el premio segun las condiciones =
+  1- Si el jugador aceertó todos los slots, recibe un premio de su apuesta multiplicado por 10.
+  2' Si el jugador acertó uno o dos slots en su combinación, recibe su apuesta multiplicada por 5.
 
-  public entregaPremio(): string[] {
-    let premio1: string[] = new Array();
-    let valor = this.entregaDePremio();
-    if (valor !== 0) {
-      premio1.push("Ha Ganado!! ");
-      premio1.push(`su premio es: ${valor}`);
-      this.player.setDinero(valor + this.player.getDinero());
+  3' Si el jugador no acertó ninguna conbinación de slots, pierde su dinero apostado.
+  
+  */
+
+  public verificarCoincidencia(): any {
+    let indicesCoinciden = true;
+
+    for (let i = 0; i < this.slotsAleatorio.length; i++) {
+      if (this.slotsAleatorio[i] !== this.slotsjugadorAleatorio[i]) {
+        indicesCoinciden = false;
+        break;
+      }
     }
-    return premio1;
+
+    if (indicesCoinciden) {
+      console.log(
+        `Felicidades, Ganaste el premio mayor!!! ${
+          this.player.getMontoApuesta() * 10
+        }`
+      );
+      this.player.getDinero(),
+        this.player.setDinero(
+          this.player.getDinero() + this.player.getMontoApuesta() * 10
+        );
+    } else if (
+      this.slotsAleatorio[0] === this.slotsjugadorAleatorio[0] ||
+      this.slotsAleatorio[1] === this.slotsjugadorAleatorio[1] ||
+      this.slotsAleatorio[2] === this.slotsjugadorAleatorio[2] ||
+      this.slotsAleatorio[3] === this.slotsjugadorAleatorio[3] ||
+      this.slotsAleatorio[4] === this.slotsjugadorAleatorio[4]
+    ) {
+      console.log(
+        `Usted acertó uno de los slots!! usted gano  ${
+          this.player.getMontoApuesta() * 5
+        }`
+      );
+      this.player.getDinero(),
+        this.player.setDinero(
+          this.player.getDinero() + this.player.getMontoApuesta() * 5
+        );
+    } else {
+      console.log(
+        `usted no gano,su saldo actual es ${this.player.getDinero()}`
+      );
+    }
   }
 
   // inicio el random de los slots que saldran al azar
   public randomSlots() {
     this.slotsAleatorio = [];
-    // sorteo 3 slots al azar del array completod de slots
+    // sorteo 5 slots al azar del array completod de slots
     for (let i = 0; i < 5; i++) {
       const indiceAleatorio = Math.floor(Math.random() * this.slots.length);
       this.slotsAleatorio.push(this.slots[indiceAleatorio]);
     }
 
     return (
-      "SLOTS DE MAQUINA --------->" +
+      "SLOTS DE MAQUINA ---------> " +
       this.slotsAleatorio[0] +
       " | " +
       this.slotsAleatorio[1] +
@@ -60,28 +86,31 @@ export class tragaMonedasGrande {
   // inicio el random de los slots del Jugador
   public randomSlotsJugador() {
     this.slotsjugadorAleatorio = [];
-    // sorteo 3 slots al azar para asignar al jugador
+    // sorteo 5 slots al azar para asignar al jugador
     for (let i = 0; i < 5; i++) {
       const jugadorAleatorio = Math.floor(Math.random() * this.slots.length);
       this.slotsjugadorAleatorio.push(this.slots[jugadorAleatorio]);
     }
 
     return (
-      "SLOTS DE JUGADOR --------->" +
+      "SLOTS DE JUGADOR ---------> " +
       this.slotsjugadorAleatorio[0] +
       " | " +
       this.slotsjugadorAleatorio[1] +
       " | " +
       this.slotsjugadorAleatorio[2] +
       " | " +
-      this.slotsAleatorio[3] +
+      this.slotsjugadorAleatorio[3] +
       " | " +
-      this.slotsAleatorio[4]
+      this.slotsjugadorAleatorio[4]
     );
   }
 
   public mostrarEnPantalla(): any {
-    let tragamonedas = new tragaMonedasGrande("Tragamonedas", this.player);
+    let tragamonedas = new tragamonedasGrande(
+      "TragamonedasGrande",
+      this.player
+    );
 
     console.log(yellow(tragamonedas.randomSlots()));
     console.log(blue(tragamonedas.randomSlotsJugador()));
@@ -97,42 +126,13 @@ export class tragaMonedasGrande {
     Cuanto mayor sea el numero de coincidencias, mayor sera el premio que recibira el jugador.
     
        -----------------------------------------------------------------------------------------------------`;
-    return guia;
+    return guia.black.bgCyan;
   }
 
-  public verificarCoincidencia(): any {
-    let premio: number = this.player.getMontoApuesta();
-    let indicesCoinciden = true;
-
-    for (let i = 0; i < this.slotsAleatorio.length; i++) {
-      if (this.slotsAleatorio[i] !== this.slotsjugadorAleatorio[i]) {
-        indicesCoinciden = false;
-        break;
-      }
-    }
-
-    if (indicesCoinciden) {
-      let premiomayor: number = 2500;
-      console.log(
-        `Felicidades, Usted Gano el premio Mayor!! recibio: ${(premiomayor =
-          premiomayor * 3)}`
-      );
-    } else if (
-      this.slotsAleatorio[0] === this.slotsjugadorAleatorio[0] ||
-      this.slotsAleatorio[1] === this.slotsjugadorAleatorio[1] ||
-      this.slotsAleatorio[2] === this.slotsjugadorAleatorio[2] ||
-      this.slotsAleatorio[3] === this.slotsjugadorAleatorio[3] ||
-      this.slotsAleatorio[4] === this.slotsjugadorAleatorio[4]
-    ) {
-      console.log(
-        `Usted acertó uno de los slots!! usted gano ${premio * 1} creditos `
-      );
-    } else {
-      let premio: number = this.player.getMontoApuesta();
-      console.log(
-        `usted no gano,perdió ${(premio = premio / 2)} siga participando`
-      );
-    }
+  public probabilidades(): string {
+    let probabilidades =
+      " -----------------------------------------------------------------------------------------------------la probabilidad de acertar el número exacto de slots seria de 0.61% o 1 en 164 intentos.-----------------------------------------------------------------------------------------------------";
+    return probabilidades.black.bgYellow;
   }
 
   public play(casino: Casino): void {
@@ -140,6 +140,7 @@ export class tragaMonedasGrande {
     console.log(casino.clear());
     console.log(casino.reglas(this.nombre));
     console.log(this.guia());
+    console.log(this.probabilidades());
     casino.pausa();
     do {
       hCasino = [];
@@ -154,7 +155,6 @@ export class tragaMonedasGrande {
       console.log(casino.clear());
       casino.setCasino(this.mostrarEnPantalla());
       casino.mostrarInicio(this.nombre);
-      //hCasino.push.apply(hCasino, this.entregaPremio());
       casino.setCasino(hCasino);
       casino.mostrarMensaje();
     } while (
