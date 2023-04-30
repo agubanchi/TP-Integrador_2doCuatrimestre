@@ -121,11 +121,8 @@ var tragaMonedasChica = /** @class */ (function (_super) {
             casino.mostrarInicio(this.nombre);
             casino.setCasino(hCasino);
             casino.mostrarMensaje();
-        } while (this.player.getMontoApuesta() > 0 &&
+        } while (this.player.getDinero() > 0 &&
             readline.keyInYN("Queres volver a intentar? "));
-        console.log(this.player.AgregarDinero());
-        console.log(casino.clear);
-        console.log(casino.mostrarInicio);
     };
     return tragaMonedasChica;
 }(tragamonedas_1.Tragamonedas));

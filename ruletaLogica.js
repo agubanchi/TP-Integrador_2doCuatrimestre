@@ -113,9 +113,11 @@ var Ruleta = /** @class */ (function () {
                 this.player.setDinero(this.player.getDinero() + this.player.getMontoApuesta() * 5);
         }
         else if (this.numeroGanador == this.numeroJugador) {
-            console.log("Usted acert\u00F3 el numero ganador! recibio  ".concat(this.player.getMontoApuesta() * 3));
-            this.player.getDinero(),
-                this.player.setDinero(this.player.getDinero() + this.player.getMontoApuesta() * 3);
+            console.log("Usted acert\u00F3 el numero ganador! recibio  ".concat(this.player.getMontoApuesta() * 3 // muestro el premio que recibira el jugador, en este caso, su apuesta multiplicada x 3
+            ));
+            this.player.getDinero(), //obtengo el dinero del jugador
+                this.player.setDinero(this.player.getDinero() + this.player.getMontoApuesta() * 3 //al dinero del jugador le sumo la apuesta multiplicada x 3
+                );
         }
         else if (this.colorGanador[0] === this.colorJugador[0] ||
             this.colorGanador[1] === this.colorJugador[1]) {
@@ -163,8 +165,6 @@ var Ruleta = /** @class */ (function () {
             casino.mostrarMensaje();
         } while (this.player.getMontoApuesta() > 0 &&
             readline.keyInYN("Queres volver a intentar? "));
-        console.log(casino.clear());
-        console.log(this.player.AgregarDinero());
     };
     return Ruleta;
 }());

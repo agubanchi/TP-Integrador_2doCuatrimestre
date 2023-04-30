@@ -153,12 +153,12 @@ export class Ruleta implements interfazRuleta {
     } else if (this.numeroGanador == this.numeroJugador) {
       console.log(
         `Usted acertó el numero ganador! recibio  ${
-          this.player.getMontoApuesta() * 3
+          this.player.getMontoApuesta() * 3 // muestro el premio que recibira el jugador, en este caso, su apuesta multiplicada x 3
         }`
       );
-      this.player.getDinero(),
+      this.player.getDinero(), //obtengo el dinero del jugador
         this.player.setDinero(
-          this.player.getDinero() + this.player.getMontoApuesta() * 3
+          this.player.getDinero() + this.player.getMontoApuesta() * 3 //al dinero del jugador le sumo la apuesta multiplicada x 3
         );
     } else if (
       this.colorGanador[0] === this.colorJugador[0] ||
@@ -221,7 +221,5 @@ export class Ruleta implements interfazRuleta {
       this.player.getMontoApuesta() > 0 &&
       readline.keyInYN("Queres volver a intentar? ")
     );
-    console.log(casino.clear());
-    console.log(this.player.AgregarDinero());
   }
 }
