@@ -39,44 +39,30 @@ var Cartas = /** @class */ (function () {
     Cartas.prototype.setapuesta = function (p_apuesta) {
         this.apuesta = p_apuesta;
     };
-    /* public entregaDePremio(): number {
-      let premio = this.player.getMontoApuesta();
-      if (this.verificarCoincidencia() == true) {
-        premio = this.player.getMontoApuesta() * 4;
-      }
-      return premio;
-    }
-  */
-    /*
-    public entregaPremio(): string[] {
-      let premio1: string[] = new Array();
-      let valor = this.entregaDePremio();
-      if (valor !== 0) {
-        premio1.push("Ha Ganado!! ");
-        premio1.push(`su premio es: ${valor}`);
-        this.player.setDinero(valor + this.player.getDinero());
-      }
-      return premio1;
-    }*/
+    Cartas.prototype.guia = function () {
+        var guia = "-----------------------------------------------------------------------------------------------------\n    El juego consiste en que el jugador pide una carta y puede salir\n  la carta con valor y color aleatorio (numeros del 1 al 9 y colores Rojo, Blanco y Negro).\n  Donde el 9 es el mas grande y el 1 es el mas chico y tomando en cuenta que el rojo es el de mayor valor,\n  el blanco el del medio y el negro el que vale menos. Por ejemplo, si el jugador le toca 1:coraz\u00F3n:\n    y la maquina saca 8:coraz\u00F3n_blanco: el jugador ganaria ya que el 1:coraz\u00F3n: vale mas que el 8:coraz\u00F3n_blanco:\n  -----------------------------------------------------------------------------------------------------";
+        return guia.black.bgCyan;
+    };
+    Cartas.prototype.probabilidades = function () {
+        var probabilidades = " -----------------------------------------------------------------------------------------------------la probabilidad de acertar el número exacto de slots seria de 0.61% o 1 en 164 intentos.-----------------------------------------------------------------------------------------------------";
+        return probabilidades.black.bgYellow;
+    };
     Cartas.prototype.mostrarEnPantalla = function () {
-        var cartas = new Cartas("Tragamonedas", this.player);
+        var cartas = new Cartas("Cartas", this.player);
         cartas.pedirCartaJugador();
         cartas.pedirCartaMaquina();
         cartas.validarSaldo();
-        //cartas.obtenerNumeroCartaAleatorio();
-        //cartas.obtenerColorAleatorio();
-        cartas.verificarCoincidencia();
+        cartas.obtenerNumeroCartaAleatorio();
+        cartas.obtenerColorAleatorio();
+        cartas.validarGanador();
         cartas.darApuesta();
-    };
-    Cartas.prototype.guia = function () {
-        var guia = "-----------------------------------------------------------------------------------------------------\n    El juego consiste en que el jugador pide una carta y puede salir\nla carta con valor y color aleatorio (numeros del 1 al 9 y colores Rojo, Blanco y Negro).\nDonde el 9 es el mas grande y el 1 es el mas chico y tomando en cuenta que el rojo es el de mayor valor,\nel blanco el del medio y el negro el que vale menos. Por ejemplo, si el jugador le toca 1:coraz\u00F3n:\n    y la maquina saca 8:coraz\u00F3n_blanco: el jugador ganaria ya que el 1:coraz\u00F3n: vale mas que el 8:coraz\u00F3n_blanco:\n-----------------------------------------------------------------------------------------------------";
-        return guia;
     };
     Cartas.prototype.play = function (casino) {
         var hCasino;
         console.log(casino.clear());
         console.log(casino.reglas(this.nombre));
         console.log(this.guia());
+        console.log(this.probabilidades());
         casino.pausa();
         do {
             hCasino = [];
@@ -91,7 +77,6 @@ var Cartas = /** @class */ (function () {
             console.log(casino.clear());
             casino.setCasino(this.mostrarEnPantalla());
             casino.mostrarInicio(this.nombre);
-            //hCasino.push.apply(hCasino, this.entregaPremio());
             casino.setCasino(hCasino);
             casino.mostrarMensaje();
         } while (this.player.getDinero() > 0 &&
@@ -129,7 +114,7 @@ var Cartas = /** @class */ (function () {
         this.setapuesta(apuesta);
         return this.apuesta;
     };
-    Cartas.prototype.verificarCoincidencia = function () {
+    Cartas.prototype.validarGanador = function () {
         var jugadorCarta = this.pedirCartaJugador();
         var jugadorNumero = parseInt(jugadorCarta.charAt(0));
         var jugadorColor = jugadorCarta.charAt(1);
@@ -164,7 +149,7 @@ var Cartas = /** @class */ (function () {
         return ganador;
     };
     Cartas.prototype.darApuesta = function () {
-        var ganador = this.verificarCoincidencia();
+        var ganador = this.validarGanador();
         if (ganador === "La Maquina") {
             this.setapuesta(0);
             return "La Maquina";
@@ -179,14 +164,6 @@ var Cartas = /** @class */ (function () {
             this.setapuesta(0);
             return "Empate";
         }
-    };
-    Cartas.prototype.iniciarJuego = function () {
-        console.log("Bienvenido al Juego Cartas");
-        var apuesta = readline.questionInt("Ingrese su apuesta: ");
-        this.apostar(apuesta);
-        var resultado = this.verificarCoincidencia();
-        console.log("El resultado es: ".concat(resultado));
-        console.log("Su saldo es: ".concat(this.saldo));
     };
     return Cartas;
 }());

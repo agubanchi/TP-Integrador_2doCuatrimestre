@@ -11,6 +11,7 @@ var Casino = /** @class */ (function () {
         this.casino = pCasino;
     }
     Casino.prototype.welcome = function (pTitulo) {
+        console.clear();
         console.log("Bienvenido al ".concat(pTitulo, "\n").grey.bgWhite);
         console.log("************** Mucha suerte **************".grey.bgWhite);
     };
@@ -38,13 +39,6 @@ var Casino = /** @class */ (function () {
         }
         console.log("Exitos! ");
     };
-    /*public preguntas(): void{
-      let pNombre = readline.question("Dime tu nombre: ");
-      let pEdad = readline.questionInt("Ahora, dime tu edad: ");
-      let pCredito = readline.questionInt('Cuantos creditos deseas comprar?')
-      let player = new Player(pNombre, pEdad, pCredito);
-      player.validacionDeEdad(pEdad);
-      }*/
     Casino.prototype.mostrarInicio = function (pTitulo) {
         console.log("Disfrute mucho de ".concat(pTitulo));
         console.log("mucha suerte!!");
@@ -112,6 +106,9 @@ var Casino = /** @class */ (function () {
         var pNombre = readline.question("Dime tu nombre: ");
         var pEdad = readline.questionInt("Ahora, dime tu edad: ");
         var pCredito = readline.questionInt("Cuantos creditos deseas comprar? ");
+        if (pCredito <= 0) {
+            console.log("Ingrese una suma positiva por favor...");
+        }
         console.log(casino1.clear());
         var player = new player_1.Player(pNombre, pEdad, pCredito);
         player.validacionDeEdad(pEdad);

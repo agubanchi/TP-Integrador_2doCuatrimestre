@@ -2,6 +2,10 @@ import * as readline from "readline-sync";
 import { red, blue, yellow, green } from "colors";
 import { Player } from "./player";
 import { Menu } from "./menu";
+import { Ruleta } from "./ruletaLogica";
+import { tragaMonedasChica } from "./tragamonedasChico";
+//import { TragamonedasGrande } from "./tragamonedasGrande";
+//import { Cartas } from "./cartas";
 
 export class Casino {
   protected casino: string[];

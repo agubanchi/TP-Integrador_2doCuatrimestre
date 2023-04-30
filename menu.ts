@@ -3,7 +3,7 @@ import { Player } from "./player";
 import { Ruleta } from "./ruletaLogica";
 import { tragaMonedasChica } from "./tragamonedasChico";
 import { Cartas } from "./cartas";
-import { tragaMonedasGrande } from "./tragamonedasGrande";
+import { tragamonedasGrande } from "./tragamonedasGrande";
 
 export class Menu {
   public constructor() {}
@@ -26,7 +26,7 @@ export class Menu {
         game.play(casino);
         break;
       case 3:
-        game = new tragaMonedasGrande("Tragamonedas Premium", player);
+        game = new tragamonedasGrande("Tragamonedas Premium", player);
         game.play(casino);
         break;
       case 4:

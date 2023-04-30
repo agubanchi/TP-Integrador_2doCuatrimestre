@@ -23,7 +23,7 @@ var Menu = /** @class */ (function () {
                 game.play(casino);
                 break;
             case 3:
-                game = new tragamonedasGrande_1.tragaMonedasGrande("Tragamonedas Premium", player);
+                game = new tragamonedasGrande_1.tragamonedasGrande("Tragamonedas Premium", player);
                 game.play(casino);
                 break;
             case 4:
