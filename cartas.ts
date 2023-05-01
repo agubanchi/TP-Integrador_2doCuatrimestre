@@ -55,12 +55,7 @@ export class Cartas {
 
   public mostrarEnPantalla(): any {
     let cartas = new Cartas("Cartas", this.player);
-    cartas.pedirCartaJugador();
-    cartas.pedirCartaMaquina();
-    cartas.validarSaldo();
-    cartas.obtenerNumeroCartaAleatorio();
-    cartas.obtenerColorAleatorio();
-    cartas.validarGanador();
+
     cartas.darApuesta();
   }
   public play(casino: Casino): void {
@@ -156,16 +151,29 @@ export class Cartas {
   public darApuesta() {
     const ganador = this.validarGanador();
     if (ganador === "La Maquina") {
-      this.setapuesta(0);
-      return "La Maquina";
+      console.log(
+        `La Maquina es el ganador, su saldo actual es ${this.player.getDinero()}`
+      );
     } else if (ganador === "Jugador") {
-      this.saldo = this.saldo + this.getapuesta() * 2;
-      this.setapuesta(0);
-      return "Jugador";
+      console.log(
+        `Felicidades, Ganaste el premio mayor!!! ${
+          this.player.getMontoApuesta() * 5
+        }`
+      );
+      this.player.getDinero(),
+        this.player.setDinero(
+          this.player.getDinero() + this.player.getMontoApuesta() * 5
+        );
     } else {
-      this.saldo = this.saldo + this.getapuesta();
-      this.setapuesta(0);
-      return "Empate";
+      console.log(
+        `Usted empató con la Maquina, usted ganó  ${
+          this.player.getMontoApuesta() * 2
+        }`
+      );
+      this.player.getDinero(),
+        this.player.setDinero(
+          this.player.getDinero() + this.player.getMontoApuesta() * 2
+        );
     }
   }
 }
