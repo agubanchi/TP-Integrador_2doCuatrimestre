@@ -49,7 +49,11 @@ export class Cartas {
 
   public probabilidades(): string {
     let probabilidades =
-      " -----------------------------------------------------------------------------------------------------la probabilidad de acertar el número exacto de slots seria de 0.61% o 1 en 164 intentos.-----------------------------------------------------------------------------------------------------";
+      " -----------------------------------------------------------------------------------------------------En este juego, hay 27 cartas posibles (números del 1 al 9, y tres colores: rojo, blanco y negro). La probabilidad de que el jugador obtenga una carta específica depende del número total de cartas y de cuántas cartas hay de ese tipo específico.";
+
+    ("  Por ejemplo, la probabilidad de que el jugador obtenga una carta roja es de 9/27, o aproximadamente 33.3%, ya que hay nueve cartas rojas posibles. De manera similar, la probabilidad de que el jugador obtenga una carta blanca es de 9/27, y la probabilidad de que obtenga una carta negra es de 9/27.");
+
+    ("  Para determinar la probabilidad de que el jugador obtenga una carta específica (digamos, el 5 rojo), se debe tomar en cuenta que hay tres cartas posibles que satisfacen estas condiciones. Por lo tanto, la probabilidad de que el jugador obtenga un 5 rojo es de 3/27, o aproximadamente 11.1%.-----------------------------------------------------------------------------------------------------");
     return probabilidades.black.bgYellow;
   }
 
@@ -84,6 +88,7 @@ export class Cartas {
       this.player.getDinero() > 0 &&
       readline.keyInYN("Queres volver a intentar? ")
     );
+    return this.player.AgregarDinero();
   }
   public pedirCartaJugador(): string {
     const carta = this.obtenerNumeroCartaAleatorio();

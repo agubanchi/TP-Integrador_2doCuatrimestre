@@ -13,23 +13,6 @@ var Ruleta = /** @class */ (function () {
         this.nombre = pNombre;
         this.player = pPlayer;
     }
-    Ruleta.prototype.entregaDePremio = function () {
-        var premio = this.player.getMontoApuesta();
-        if (this.verificarCoincidencia() == true) {
-            premio = this.player.getMontoApuesta() * 4;
-        }
-        return premio;
-    };
-    Ruleta.prototype.entregaPremio = function () {
-        var premio1 = new Array();
-        var valor = this.entregaDePremio();
-        if (valor !== 0) {
-            premio1.push("Ha Ganado!! ");
-            premio1.push("su premio es: ".concat(valor));
-            this.player.setDinero(valor + this.player.getDinero());
-        }
-        return premio1;
-    };
     Ruleta.prototype.setNumeroJugador = function () {
         var numero = this.numeroJugador;
         numero = readline.questionInt("Ingresa el numero al que quieras apostar de 0 a 15: ");
@@ -69,15 +52,12 @@ var Ruleta = /** @class */ (function () {
             console.log("Ingresa un numero valido entre 0 y 1 : ");
             return this.setColorJugador();
         }
-        else {
-            console.log("El color del jugador es: ".concat(this.colorJugador).red.bgWhite);
-        }
     };
     Ruleta.prototype.saberColorGanador = function () {
         this.colorGanador = [];
         var colorGanador = Math.round(Math.random() * this.colors.length);
         this.colorGanador.push(this.colors[colorGanador]);
-        return "color ganador es ------> ".concat(this.colorGanador);
+        console.log("El color ganador es ------> ".concat(this.colorGanador));
     };
     Ruleta.prototype.tirarColor = function () {
         var random = Math.round(Math.random() * this.colors.length);
@@ -100,7 +80,7 @@ var Ruleta = /** @class */ (function () {
         return guia.black.bgCyan;
     };
     Ruleta.prototype.probabilidades = function () {
-        var probabilidades = " -----------------------------------------------------------------------------------------------------la probabilidad de acertar el número exacto sería de 1/16 = 0.0625 o aproximadamente 6.25%. Las probabilidades para aceratr el color es de 50/50 = 50% -----------------------------------------------------------------------------------------------------";
+        var probabilidades = " -----------------------------------------------------------------------------------------------------la probabilidad de acertar el número exacto sería de 1/16 = 0.0625 o aproximadamente 6.25%. Las probabilidades para acertar el color es de 50/50 = 50% ya que como apuesta contamos unicamente con 2 colores, VERDE y ROJO. -----------------------------------------------------------------------------------------------------";
         return probabilidades.black.bgYellow;
     };
     Ruleta.prototype.verificarCoincidencia = function () {
@@ -119,8 +99,8 @@ var Ruleta = /** @class */ (function () {
                 this.player.setDinero(this.player.getDinero() + this.player.getMontoApuesta() * 3 //al dinero del jugador le sumo la apuesta multiplicada x 3
                 );
         }
-        else if (this.colorGanador[0] === this.colorJugador[0] ||
-            this.colorGanador[1] === this.colorJugador[1]) {
+        else if (this.colorGanador[0] === this.setColorJugador[0] ||
+            this.colorGanador[1] === this.setColorJugador[1]) {
             console.log("Usted acert\u00F3 el color ganador! recibio  ".concat(this.player.getMontoApuesta() * 3));
             this.player.getDinero(),
                 this.player.setDinero(this.player.getDinero() + this.player.getMontoApuesta() * 3);
@@ -163,8 +143,9 @@ var Ruleta = /** @class */ (function () {
             casino.mostrarInicio(this.nombre);
             casino.setCasino(hCasino);
             casino.mostrarMensaje();
-        } while (this.player.getMontoApuesta() > 0 &&
+        } while (this.player.getDinero() > 0 &&
             readline.keyInYN("Queres volver a intentar? "));
+        return this.player.AgregarDinero();
     };
     return Ruleta;
 }());

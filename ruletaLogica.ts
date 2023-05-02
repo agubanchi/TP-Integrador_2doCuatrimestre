@@ -24,25 +24,6 @@ export class Ruleta implements interfazRuleta {
     this.player = pPlayer;
   }
 
-  public entregaDePremio(): number {
-    let premio = this.player.getMontoApuesta();
-    if (this.verificarCoincidencia() == true) {
-      premio = this.player.getMontoApuesta() * 4;
-    }
-    return premio;
-  }
-
-  public entregaPremio(): string[] {
-    let premio1: string[] = new Array();
-    let valor = this.entregaDePremio();
-    if (valor !== 0) {
-      premio1.push("Ha Ganado!! ");
-      premio1.push(`su premio es: ${valor}`);
-      this.player.setDinero(valor + this.player.getDinero());
-    }
-    return premio1;
-  }
-
   public setNumeroJugador() {
     let numero = this.numeroJugador;
     numero = readline.questionInt(
@@ -91,15 +72,13 @@ export class Ruleta implements interfazRuleta {
     if (this.colorJugador < 0 || this.colorJugador > 1) {
       console.log("Ingresa un numero valido entre 0 y 1 : ");
       return this.setColorJugador();
-    } else {
-      console.log(`El color del jugador es: ${this.colorJugador}`.red.bgWhite);
     }
   }
   public saberColorGanador() {
     this.colorGanador = [];
     let colorGanador = Math.round(Math.random() * this.colors.length);
     this.colorGanador.push(this.colors[colorGanador]);
-    return `color ganador es ------> ${this.colorGanador}`;
+    console.log(`El color ganador es ------> ${this.colorGanador}`);
   }
 
   public tirarColor() {
@@ -130,7 +109,7 @@ export class Ruleta implements interfazRuleta {
 
   public probabilidades(): string {
     let probabilidades =
-      " -----------------------------------------------------------------------------------------------------la probabilidad de acertar el número exacto sería de 1/16 = 0.0625 o aproximadamente 6.25%. Las probabilidades para aceratr el color es de 50/50 = 50% -----------------------------------------------------------------------------------------------------";
+      " -----------------------------------------------------------------------------------------------------la probabilidad de acertar el número exacto sería de 1/16 = 0.0625 o aproximadamente 6.25%. Las probabilidades para acertar el color es de 50/50 = 50% ya que como apuesta contamos unicamente con 2 colores, VERDE y ROJO. -----------------------------------------------------------------------------------------------------";
     return probabilidades.black.bgYellow;
   }
 
@@ -161,8 +140,8 @@ export class Ruleta implements interfazRuleta {
           this.player.getDinero() + this.player.getMontoApuesta() * 3 //al dinero del jugador le sumo la apuesta multiplicada x 3
         );
     } else if (
-      this.colorGanador[0] === this.colorJugador[0] ||
-      this.colorGanador[1] === this.colorJugador[1]
+      this.colorGanador[0] === this.setColorJugador[0] ||
+      this.colorGanador[1] === this.setColorJugador[1]
     ) {
       console.log(
         `Usted acertó el color ganador! recibio  ${
@@ -218,8 +197,9 @@ export class Ruleta implements interfazRuleta {
       casino.setCasino(hCasino);
       casino.mostrarMensaje();
     } while (
-      this.player.getMontoApuesta() > 0 &&
+      this.player.getDinero() > 0 &&
       readline.keyInYN("Queres volver a intentar? ")
     );
+    return this.player.AgregarDinero();
   }
 }

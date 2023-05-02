@@ -102,11 +102,13 @@ var tragamonedasGrande = /** @class */ (function (_super) {
         console.log(tragamonedas.verificarCoincidencia());
     };
     tragamonedasGrande.prototype.guia = function () {
-        var guia = "-----------------------------------------------------------------------------------------------------\n    Un juego de tragamonedas es un tipo de juego de azar. El objetivo del juego es hacer que los s\u00EDmbolos coincidan en una l\u00EDnea de pago activa.\n    Este juego,  consiste en que el jugador recibe un grupo de 5 slots al azar, cada uno interpretado por un \"corazon\"(Indice) el cual corresponde a su grupo de slots.\n    Al mismo tiempo, la maquina tambien arroja un grupo de 5 slots al azar.\n    Si los slots generados por la maquina, coinciden con los slots del jugador, este ultimo recibira sus creditos, acorde a la coincidencia de los mismos.\n    Cuanto mayor sea el numero de coincidencias, mayor sera el premio que recibira el jugador.\n    \n       -----------------------------------------------------------------------------------------------------";
+        var guia = "-----------------------------------------------------------------------------------------------------\n    Un juego de tragamonedas es un tipo de juego de azar. El objetivo del juego es hacer que los s\u00EDmbolos coincidan en una l\u00EDnea de pago activa.\n   ------ La Maquina de tragamonedas cuenta con 5 simbolos diferentes. ------\n\n    Este juego,  consiste en que el jugador recibe un grupo de 5 slots al azar, cada uno interpretado por un \"corazon\"(Indice) el cual corresponde a su grupo de slots.\n    Al mismo tiempo, la maquina tambien arroja un grupo de 5 slots al azar.\n    Si los slots generados por la maquina, coinciden con los slots del jugador, este ultimo recibira sus creditos, acorde a la coincidencia de los mismos.\n    Cuanto mayor sea el numero de coincidencias, mayor sera el premio que recibira el jugador.\n    \n       -----------------------------------------------------------------------------------------------------";
         return guia.black.bgCyan;
     };
     tragamonedasGrande.prototype.probabilidades = function () {
-        var probabilidades = " -----------------------------------------------------------------------------------------------------la probabilidad de acertar el número exacto de slots seria de 0.61% o 1 en 164 intentos.-----------------------------------------------------------------------------------------------------";
+        var probabilidades = " -----------------------------------------------------------------------------------------------------En un juego de tragamonedas con 5 símbolos y una línea de pago de 5 símbolos, y con hasta 5 combinaciones posibles de pago, la probabilidad de obtener una combinación ganadora en una sola tirada dependerá del número de combinaciones ganadoras posibles y de la frecuencia con la que aparecen en los símbolos.";
+        (" Si asumimos que hay 5 combinaciones ganadoras posibles en la línea de pago y cada una aparece con la misma frecuencia en los símbolos, entonces la probabilidad de ganar en una sola tirada sería de 5/3125, o aproximadamente 0.16%. Esto se puede calcular multiplicando la probabilidad de que aparezca la primera combinación ganadora (1/3125) por el número total de combinaciones ganadoras (5).");
+        (" Es importante tener en cuenta que la frecuencia de aparición de cada combinación ganadora dependerá del diseño específico de la máquina tragamonedas.-----------------------------------------------------------------------------------------------------");
         return probabilidades.black.bgYellow;
     };
     tragamonedasGrande.prototype.play = function (casino) {
@@ -133,6 +135,7 @@ var tragamonedasGrande = /** @class */ (function (_super) {
             casino.mostrarMensaje();
         } while (this.player.getDinero() > 0 &&
             readline.keyInYN("Queres volver a intentar? "));
+        return this.player.AgregarDinero();
     };
     return tragamonedasGrande;
 }(tragamonedas_1.Tragamonedas));

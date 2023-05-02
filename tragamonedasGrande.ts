@@ -120,6 +120,8 @@ export class tragamonedasGrande extends Tragamonedas {
   public guia(): string {
     let guia = `-----------------------------------------------------------------------------------------------------
     Un juego de tragamonedas es un tipo de juego de azar. El objetivo del juego es hacer que los símbolos coincidan en una línea de pago activa.
+   ------ La Maquina de tragamonedas cuenta con 5 simbolos diferentes. ------
+
     Este juego,  consiste en que el jugador recibe un grupo de 5 slots al azar, cada uno interpretado por un "corazon"(Indice) el cual corresponde a su grupo de slots.
     Al mismo tiempo, la maquina tambien arroja un grupo de 5 slots al azar.
     Si los slots generados por la maquina, coinciden con los slots del jugador, este ultimo recibira sus creditos, acorde a la coincidencia de los mismos.
@@ -131,7 +133,11 @@ export class tragamonedasGrande extends Tragamonedas {
 
   public probabilidades(): string {
     let probabilidades =
-      " -----------------------------------------------------------------------------------------------------la probabilidad de acertar el número exacto de slots seria de 0.61% o 1 en 164 intentos.-----------------------------------------------------------------------------------------------------";
+      " -----------------------------------------------------------------------------------------------------En un juego de tragamonedas con 5 símbolos y una línea de pago de 5 símbolos, y con hasta 5 combinaciones posibles de pago, la probabilidad de obtener una combinación ganadora en una sola tirada dependerá del número de combinaciones ganadoras posibles y de la frecuencia con la que aparecen en los símbolos.";
+
+    (" Si asumimos que hay 5 combinaciones ganadoras posibles en la línea de pago y cada una aparece con la misma frecuencia en los símbolos, entonces la probabilidad de ganar en una sola tirada sería de 5/3125, o aproximadamente 0.16%. Esto se puede calcular multiplicando la probabilidad de que aparezca la primera combinación ganadora (1/3125) por el número total de combinaciones ganadoras (5).");
+
+    (" Es importante tener en cuenta que la frecuencia de aparición de cada combinación ganadora dependerá del diseño específico de la máquina tragamonedas.-----------------------------------------------------------------------------------------------------");
     return probabilidades.black.bgYellow;
   }
 
@@ -161,5 +167,6 @@ export class tragamonedasGrande extends Tragamonedas {
       this.player.getDinero() > 0 &&
       readline.keyInYN("Queres volver a intentar? ")
     );
+    return this.player.AgregarDinero();
   }
 }

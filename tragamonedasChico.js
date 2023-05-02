@@ -96,7 +96,9 @@ var tragaMonedasChica = /** @class */ (function (_super) {
         return guia;
     };
     tragaMonedasChica.prototype.probabilidades = function () {
-        var probabilidades = " -----------------------------------------------------------------------------------------------------la probabilidad de acertar el número exacto de slots seria de 0.61% o 1 en 164 intentos.-----------------------------------------------------------------------------------------------------";
+        var probabilidades = " -----------------------------------------------------------------------------------------------------En un juego de tragamonedas con 3 símbolos y una línea de pago de 3 símbolos, y con hasta 3 combinaciones posibles de pago, la probabilidad de obtener una combinación ganadora en una sola tirada dependerá del número de combinaciones ganadoras posibles y de la frecuencia con la que aparecen en los símbolos.";
+        (" Si asumimos que hay 3 combinaciones ganadoras posibles en la línea de pago y cada una aparece con la misma frecuencia en los símbolos, entonces la probabilidad de ganar en una sola tirada sería de 3/27, o aproximadamente 11.1%. Esto se puede calcular multiplicando la probabilidad de que aparezca la primera combinación ganadora (1/3) por el número total de combinaciones ganadoras (3).");
+        ("  Es importante tener en cuenta que la frecuencia de aparición de cada combinación ganadora dependerá del diseño específico de la máquina tragamonedas. -----------------------------------------------------------------------------------------------------");
         return probabilidades.black.bgYellow;
     };
     tragaMonedasChica.prototype.play = function (casino) {
@@ -123,6 +125,7 @@ var tragaMonedasChica = /** @class */ (function (_super) {
             casino.mostrarMensaje();
         } while (this.player.getDinero() > 0 &&
             readline.keyInYN("Queres volver a intentar? "));
+        return this.player.AgregarDinero();
     };
     return tragaMonedasChica;
 }(tragamonedas_1.Tragamonedas));
