@@ -1,9 +1,9 @@
 import { Casino } from "./casino";
 import { Player } from "./player";
-import { Ruleta } from "./ruletaLogica";
 import { tragaMonedasChica } from "./tragamonedasChico";
 import { Cartas } from "./cartas";
 import { tragamonedasGrande } from "./tragamonedasGrande";
+import { Dados } from "./dados";
 
 export class Menu {
   public constructor() {}
@@ -30,7 +30,7 @@ export class Menu {
         game.play(casino);
         break;
       case 4:
-        game = new Ruleta("ruleta", player);
+        game = new Dados("Dado dadin", player);
         game.play(casino);
         break;
 

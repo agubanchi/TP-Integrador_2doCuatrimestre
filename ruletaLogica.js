@@ -7,7 +7,7 @@ var readline = require("readline-sync");
 var Ruleta = /** @class */ (function () {
     function Ruleta(pNombre, pPlayer) {
         this.inicioRuleta = 0;
-        this.finalRuleta = 2;
+        this.finalRuleta = 15;
         this.colors = ["Rojo", "Verde"];
         this.colorGanador = [];
         this.nombre = pNombre;
@@ -83,13 +83,27 @@ var Ruleta = /** @class */ (function () {
         var probabilidades = " -----------------------------------------------------------------------------------------------------la probabilidad de acertar el número exacto sería de 1/16 = 0.0625 o aproximadamente 6.25%. Las probabilidades para acertar el color es de 50/50 = 50% ya que como apuesta contamos unicamente con 2 colores, VERDE y ROJO. -----------------------------------------------------------------------------------------------------";
         return probabilidades.black.bgYellow;
     };
-    Ruleta.prototype.verificarNumero = function () {
-        var condicion = true;
-        if (this.numeroGanador === this.numeroJugador) {
+    Ruleta.prototype.verificarCoincidencia = function () {
+        var condicion = false;
+        if ((this.numeroGanador == this.numeroJugador &&
+            this.colorGanador[0] == this.colorJugador[0]) ||
+            this.colorGanador[1] == this.colorJugador[1]) {
             console.log("Wow usted ha Ganado el premio Mayor!!! ".concat(this.player.getMontoApuesta() * 5));
             this.player.getDinero(),
                 this.player.setDinero(this.player.getDinero() + this.player.getMontoApuesta() * 5);
-            condicion = true;
+        }
+        else if (this.numeroGanador == this.numeroJugador) {
+            console.log("Usted acert\u00F3 el numero ganador! recibio  ".concat(this.player.getMontoApuesta() * 3 // muestro el premio que recibira el jugador, en este caso, su apuesta multiplicada x 3
+            ));
+            this.player.getDinero(), //obtengo el dinero del jugador
+                this.player.setDinero(this.player.getDinero() + this.player.getMontoApuesta() * 3 //al dinero del jugador le sumo la apuesta multiplicada x 3
+                );
+        }
+        else if (this.colorGanador[0] === this.colorJugador[0] ||
+            this.colorGanador[1] === this.colorJugador[1]) {
+            console.log("Usted acert\u00F3 el color ganador! recibio  ".concat(this.player.getMontoApuesta() * 3));
+            this.player.getDinero(),
+                this.player.setDinero(this.player.getDinero() + this.player.getMontoApuesta() * 3);
         }
         else {
             console.log("Usted no acert\u00F3 el color ni numero ganador, Vuelva a intentarlo...su saldo actual es ".concat(this.player.getDinero()));
@@ -101,7 +115,7 @@ var Ruleta = /** @class */ (function () {
         ruleta1.setNumeroJugador();
         ruleta1.setColorJugador();
         ruleta1.tirarRuleta();
-        ruleta1.verificarNumero();
+        ruleta1.verificarCoincidencia();
         ruleta1.saberColorGanador();
     };
     Ruleta.prototype.play = function (casino) {

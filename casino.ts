@@ -75,7 +75,7 @@ export class Casino {
     );
     console.log("\n");
     console.log(
-      `4.------------------Ruleta----------------------- `.black.bgWhite
+      `4.------------------Dados----------------------- `.black.bgWhite
     );
     console.log("\n");
     console.log(`0.*******************salir*********************** `.yellow);

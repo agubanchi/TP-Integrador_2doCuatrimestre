@@ -56,7 +56,7 @@ var Casino = /** @class */ (function () {
         console.log("\n");
         console.log("3.-------------Tragamoneas Grande---------------- ".green.bgWhite);
         console.log("\n");
-        console.log("4.------------------Ruleta----------------------- ".black.bgWhite);
+        console.log("4.------------------Dados----------------------- ".black.bgWhite);
         console.log("\n");
         console.log("0.*******************salir*********************** ".yellow);
         console.log("\n");

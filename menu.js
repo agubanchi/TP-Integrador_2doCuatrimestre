@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Menu = void 0;
-var ruletaLogica_1 = require("./ruletaLogica");
 var tragamonedasChico_1 = require("./tragamonedasChico");
 var cartas_1 = require("./cartas");
 var tragamonedasGrande_1 = require("./tragamonedasGrande");
+var dados_1 = require("./dados");
 var Menu = /** @class */ (function () {
     function Menu() {
     }
@@ -27,7 +27,7 @@ var Menu = /** @class */ (function () {
                 game.play(casino);
                 break;
             case 4:
-                game = new ruletaLogica_1.Ruleta("ruleta", player);
+                game = new dados_1.Dados("Dado dadin", player);
                 game.play(casino);
                 break;
             default:
