@@ -117,8 +117,8 @@ export class Ruleta implements interfazRuleta {
     let condicion: boolean = false;
     if (
       (this.numeroGanador == this.numeroJugador &&
-        this.colors[0] == this.colorJugador[0]) ||
-      this.colors[1] == this.colorJugador[1]
+        this.colorGanador[0] == this.colorJugador[0]) ||
+      this.colorGanador[1] == this.colorJugador[1]
     ) {
       console.log(
         `Wow usted ha Ganado el premio Mayor!!! ${
@@ -140,8 +140,8 @@ export class Ruleta implements interfazRuleta {
           this.player.getDinero() + this.player.getMontoApuesta() * 3 //al dinero del jugador le sumo la apuesta multiplicada x 3
         );
     } else if (
-      this.colorGanador[0] === this.setColorJugador[0] ||
-      this.colorGanador[1] === this.setColorJugador[1]
+      this.colorGanador[0] === this.colorJugador[0] ||
+      this.colorGanador[1] === this.colorJugador[1]
     ) {
       console.log(
         `Usted acertó el color ganador! recibio  ${
@@ -156,10 +156,6 @@ export class Ruleta implements interfazRuleta {
       console.log(
         `Usted no acertó el color ni numero ganador, Vuelva a intentarlo...su saldo actual es ${this.player.getDinero()}`
       );
-    }
-
-    if (this.player.getMontoApuesta() <= 0) {
-      console.log(this.player.AgregarDinero());
     }
 
     return condicion;

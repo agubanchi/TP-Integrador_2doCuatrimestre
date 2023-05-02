@@ -67,8 +67,8 @@ export class Player {
 
   public AgregarDinero(): void {
     let monto: number;
-    if (readlineSync.keyInYN("desea agregar más crédito?")) {
-      monto = readline.questionInt("Ingrese los créditos que desea agregar");
+    if (readlineSync.keyInYN("desea agregar mas credito?")) {
+      monto = readline.questionInt("Ingrese los créditos que desea agregar: ");
       if (monto >= 0) {
         this.dinero = this.dinero + monto;
       } else {
