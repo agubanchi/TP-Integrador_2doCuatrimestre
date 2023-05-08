@@ -23,14 +23,15 @@ var Dados = /** @class */ (function () {
     };
     Dados.prototype.tirarDados = function () {
         var condicion;
-        var numeroElegido = readline.questionInt("Ingrese el numero al que quiere apostar: ");
+        var numeroElegido;
+        do {
+            numeroElegido = readline.questionInt("Ingrese el numero al que quiere apostar: ");
+            if (numeroElegido > 6 || numeroElegido < 1) {
+                console.log("El número ingresado es inválido. Debe ser un número entre 1 y 6.");
+            }
+        } while (numeroElegido > 6 || numeroElegido < 1);
         var numeroSalio = Math.floor(Math.random() * 6) + 1;
-        if (numeroElegido > 6 || numeroElegido < 1) {
-            console.log("desafortunadamente usted perdio el inento.");
-            condicion = false;
-            readline.question("debe ingresar un numero de 1 a 6, presione ENTER para continuar: ");
-        }
-        else if (numeroElegido == numeroSalio) {
+        if (numeroElegido == numeroSalio) {
             console.log("numero elegido: ".concat(numeroElegido, ", numero salio: ").concat(numeroSalio));
             console.log("ganaste ".concat(this.player.getMontoApuesta() * 2));
             condicion = true;

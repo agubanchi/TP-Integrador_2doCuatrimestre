@@ -34,17 +34,19 @@ export class Dados {
 
   public tirarDados(): boolean {
     let condicion: boolean;
-    const numeroElegido: number = readline.questionInt(
-      "Ingrese el numero al que quiere apostar: "
-    );
-    const numeroSalio = Math.floor(Math.random() * 6) + 1;
-    if (numeroElegido > 6 || numeroElegido < 1) {
-      console.log("desafortunadamente usted perdio el inento.");
-      condicion = false;
-      readline.question(
-        "debe ingresar un numero de 1 a 6, presione ENTER para continuar: "
+    let numeroElegido: number;
+    do {
+      numeroElegido = readline.questionInt(
+        "Ingrese el numero al que quiere apostar: "
       );
-    } else if (numeroElegido == numeroSalio) {
+      if (numeroElegido > 6 || numeroElegido < 1) {
+        console.log(
+          "El número ingresado es inválido. Debe ser un número entre 1 y 6."
+        );
+      }
+    } while (numeroElegido > 6 || numeroElegido < 1);
+    const numeroSalio = Math.floor(Math.random() * 6) + 1;
+    if (numeroElegido == numeroSalio) {
       console.log(
         `numero elegido: ${numeroElegido}, numero salio: ${numeroSalio}`
       );
